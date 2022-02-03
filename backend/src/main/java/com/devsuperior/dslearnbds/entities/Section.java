@@ -1,112 +1,129 @@
 package com.devsuperior.dslearnbds.entities;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-    @Entity
-    @Table(name = "tb_section")
-    public class Section  implements Serializable {
-        private static final long serialVersionUID = 1L;
+@Entity
+@Table(name = "tb_section")
+public class Section implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private  long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String title;
+	private String description;
+	private Integer position;
+	private String imgUri;
+	
+	@ManyToOne
+	@JoinColumn(name = "resource_id")
+	private Resource resource;
+	
+	@ManyToOne
+	@JoinColumn(name = "prerequisite_id")
+	private Section prerequisite;
+	
+	public Section() {
+	}
 
-        private String title;
-        private String description;
-        private Integer position;
-        private String imgUri;
+	public Section(Long id, String title, String description, Integer position, String imgUri, Resource resource,
+			Section prerequisite) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.position = position;
+		this.imgUri = imgUri;
+		this.resource = resource;
+		this.prerequisite = prerequisite;
+	}
 
-        @ManyToOne
-        @JoinColumn(name = "resource_id")
-        private Resource resource;
+	public Long getId() {
+		return id;
+	}
 
-        @ManyToOne
-        @JoinColumn(name = "prerequisite_id")
-        private Section prerequisite;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-        public Section() {
-        }
+	public String getTitle() {
+		return title;
+	}
 
-        public Section(long id, String title, String description, Integer position, String imgUri, Resource resource, Section prerequisite) {
-            this.id = id;
-            this.title = title;
-            this.description = description;
-            this.position = position;
-            this.imgUri = imgUri;
-            this.resource = resource;
-            this.prerequisite = prerequisite;
-        }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-        public long getId() {
-            return id;
-        }
+	public String getDescription() {
+		return description;
+	}
 
-        public void setId(long id) {
-            this.id = id;
-        }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-        public String getTitle() {
-            return title;
-        }
+	public Integer getPosition() {
+		return position;
+	}
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
+	public void setPosition(Integer position) {
+		this.position = position;
+	}
 
-        public String getDescription() {
-            return description;
-        }
+	public String getImgUri() {
+		return imgUri;
+	}
 
-        public void setDescription(String description) {
-            this.description = description;
-        }
+	public void setImgUri(String imgUri) {
+		this.imgUri = imgUri;
+	}
 
-        public Integer getPosition() {
-            return position;
-        }
+	public Resource getResource() {
+		return resource;
+	}
 
-        public void setPosition(Integer position) {
-            this.position = position;
-        }
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
 
-        public String getImgUri() {
-            return imgUri;
-        }
+	public Section getPrerequisite() {
+		return prerequisite;
+	}
 
-        public void setImgUri(String imgUri) {
-            this.imgUri = imgUri;
-        }
+	public void setPrerequisite(Section prerequisite) {
+		this.prerequisite = prerequisite;
+	}
 
-        public Resource getResource() {
-            return resource;
-        }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
-        public void setResource(Resource resource) {
-            this.resource = resource;
-        }
-
-        public Section getPrerequisite() {
-            return prerequisite;
-        }
-
-        public void setPrerequisite(Section prerequisite) {
-            this.prerequisite = prerequisite;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Section section = (Section) o;
-
-            return id == section.id;
-        }
-
-        @Override
-        public int hashCode() {
-            return (int) (id ^ (id >>> 32));
-        }
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Section other = (Section) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+}
