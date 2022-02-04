@@ -1,4 +1,4 @@
-package com.devsuperior.dslearnbds.resource;
+package com.devsuperior.dslearnbds.resources;
 
 import com.devsuperior.dslearnbds.dto.UserDTO;
 import com.devsuperior.dslearnbds.services.UserService;
